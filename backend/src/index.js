@@ -9,8 +9,14 @@ router.get('/', ctx => {
   ctx.body = '홈';
 });
 
-router.get('/about', ctx => {
-  ctx.body = '소개';
+router.get('/about/:name?', ctx => {
+  const { name } = ctx.params; // /about/10 이런 식의 파라미터를 읽어옴
+  ctx.body = name ? `${name}의 소개 페이지` : '소개';
+});
+
+router.get('/posts', ctx => {
+  const { id } = ctx.query; // /posts/?id=10 이런 식의 쿼리를 읽어옴
+  ctx.body = id ? `${id}의 포스트` : '포스트 아이디가 없습니다';
 });
 
 app.use(router.routes()).use(router.allowedMethods());
